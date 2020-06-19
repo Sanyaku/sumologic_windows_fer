@@ -9,7 +9,7 @@ variable "base_name" {
 }
 
 resource "sumologic_field_extraction_rule" "WindowsDefaultFields" {
-  name = "Windows Default Fields"
+  name = "Windows Default Fields Optimized"
   scope = var.base_scope
   parse_expression = <<-EOT
   parse "EventCode = *;" as EventId nodrop
