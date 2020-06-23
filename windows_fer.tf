@@ -18,7 +18,7 @@ resource "sumologic_field_extraction_rule" "WindowsDefaultFields" {
   | parse "Message = \"*\"" as Description nodrop
   | parse "RecordNumber = *;" as EventRecordID nodrop
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4624" {
@@ -34,7 +34,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4624" {
   | parse "Detailed Authentication Information:\r\n\tLogon Process:*\r\n" as EventData_LogonProcessName
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4625" {
@@ -52,7 +52,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4625" {
   | parse "Detailed Authentication Information:\r\n\tLogon Process:*\r\n" as EventData_LogonProcessName
   | fields - _1,_2,_3,_4
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4627" {
@@ -65,7 +65,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4627" {
   | parse "New Logon:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\r\n" as _2,EventData_TargetUserName,EventData_TargetDomainName
   | fields - _1,_2
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4648" {
@@ -80,7 +80,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4648" {
   | parse "Network Information:\r\n\tNetwork Address:*\r\n\tPort:*\r\n" as EventData_IpAddress,EventData_IpPort
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4656" {
@@ -94,7 +94,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4656" {
   | parse "Process Information:\r\n\tProcess ID:*\r\n\tProcess Name:*\r\n" as EventData_ProcessId,EventData_ProcessName
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4662" {
@@ -107,7 +107,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4662" {
   | parse "Object Name:*\r\n" as EventData_ObjectDN
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4663" {
@@ -121,7 +121,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4663" {
   | parse "Process Information:\r\n\tProcess ID:*\r\n\tProcess Name:*\r\n" as EventData_ProcessId,EventData_ProcessName
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4670" {
@@ -135,7 +135,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4670" {
   | parse "Process:\r\n\tProcess ID:*\r\n\tProcess Name:*\r\n" as EventData_ProcessId,EventData_ProcessName
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4673" {
@@ -148,7 +148,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4673" {
   | parse "Process:\r\n\tProcess ID:*\r\n\tProcess Name:*\r\n" as EventData_ProcessId,EventData_ProcessName
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4674" {
@@ -162,7 +162,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4674" {
   | parse "Process Information:\r\n\tProcess ID:*\r\n\tProcess Name:*\r\n" as EventData_ProcessId,EventData_ProcessName
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent46788" {
@@ -176,7 +176,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent46788" {
   | parse "Process Information:\r\n\tNew Process ID:*\r\n\tNew Process Name:*\r\n\tToken Elevation Type:*\r\n\tMandatory Label:*\r\n\tCreator Process ID:*\r\n\tCreator Process Name:*\r\n\tProcess Command Line:*\r\n" as EventData_ProcessId,EventData_ProcessName,_3,_4,_5,EventData_ParentProcess,EventData_CommandLine
   | fields - _1,_2,_3,_4,_5
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4691" {
@@ -190,7 +190,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4691" {
   | parse "Process Information:\r\n\tProcess ID:*\r\n" as EventData_ProcessId
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4696" {
@@ -204,7 +204,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4696" {
   | parse "New Token Information:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\r\n" as _2,EventData_TargetUserName,EventData_TargetDomainName
   | fields - _1,_2
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4697" {
@@ -217,7 +217,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4697" {
   | parse "Service Information:\r\n\tService Name:*\r\n\tService File Name:*\r\n" as EventData_ServiceName,EventData_ServiceFileName
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEventScheduledTasks" {
@@ -230,7 +230,7 @@ resource "sumologic_field_extraction_rule" "WindowsEventScheduledTasks" {
   | parse "Task Information:\r\n\tTask Name:*\r\n" as EventData_TaskName
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEventAccounts" {
@@ -243,7 +243,7 @@ resource "sumologic_field_extraction_rule" "WindowsEventAccounts" {
   | parse "Target Account:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\r\n" as _2,EventData_TargetUserName,EventData_TargetDomainName
   | fields - _1,_2
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEventGroupCreation" {
@@ -256,7 +256,7 @@ resource "sumologic_field_extraction_rule" "WindowsEventGroupCreation" {
   | parse "New Group:\r\n\tSecurity ID:*\r\n\tGroup Name:*\r\n" as _2,EventData_GroupName
   | fields - _1,_2
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEventGroupMgmt" {
@@ -269,7 +269,7 @@ resource "sumologic_field_extraction_rule" "WindowsEventGroupMgmt" {
   | parse "Group:\r\n\tSecurity ID:*\r\n\tGroup Name:*\r\n" as _2,EventData_GroupName
   | fields - _1,_2
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4740" {
@@ -282,7 +282,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4740" {
   | parse "Additional Information:\r\n\tCaller Computer Name:*\"" as EventData_CallerComputer
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEventKerberos" {
@@ -296,7 +296,7 @@ resource "sumologic_field_extraction_rule" "WindowsEventKerberos" {
   | parse "Ticket Encryption Type:*\r\n" as EventData_TicketEncryption
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4771" {
@@ -310,7 +310,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4771" {
   | parse "Failure Code:*\r\n" as EventData_FailureCode
   | fields - _1,_2
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4776" {
@@ -322,7 +322,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4776" {
   parse "Source Workstation:*\r\n" as EventData_WorkstationName
   | parse "Error Code:*\"" as EventData_FailureCode
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent4799" {
@@ -336,7 +336,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent4799" {
   | parse "Process Information:\r\n\tProcess ID:*\r\n\tProcess Name:*\"" as EventData_ProcessId,EventData_ProcessName
   | fields - _1,_2
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent49074911" {
@@ -350,7 +350,7 @@ resource "sumologic_field_extraction_rule" "WindowsEvent49074911" {
   | parse "Object Name:*\r\n" as EventData_ObjectDN
   | fields - _1
   EOT
-  enabled = true
+  enabled = false
 }
 
 resource "sumologic_field_extraction_rule" "WindowsEvent5140" {
@@ -364,5 +364,5 @@ resource "sumologic_field_extraction_rule" "WindowsEvent5140" {
   | parse "Share Name:*\r\n" as EventData_ShareName
   | fields - _1,_2,_3
   EOT
-  enabled = true
+  enabled = false
 }
