@@ -15,7 +15,7 @@ resource "sumologic_field_extraction_rule" "WindowsDefaultFields" {
   parse "EventCode = *;" as EventId nodrop
   | parse "CategoryString = \"*\";" as category nodrop
   | parse "Type = \"*\"" as type nodrop
-  | parse "Message = \"*\"" as Description nodrop
+  | parse "Message = \"*\r" as Description nodrop
   | parse "RecordNumber = *;" as EventRecordID nodrop
   EOT
   enabled = true
