@@ -280,17 +280,44 @@ resource "sumologic_field_extraction_rule" "WindowsEventScheduledTasks" {
   enabled = true
 }
 
+resource "sumologic_field_extraction_rule" "WindowsEvent4720" {
+  name = "${var.base_name} 4720"
+  scope = <<-EOT
+  ${var.base_scope} "EventCode = 4720"
+  EOT
+  parse_expression = <<-EOT
+  parse "Subject:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\r\n\tLogon ID:*\r\n" as EventData_SubjectSecurityId,EventData_SubjectUserName,EventData_SubjectDomainName,EventData_LogonId
+  | trim(EventData_SubjectSecurityId) | trim(EventData_SubjectUserName) | trim(EventData_SubjectDomainName) | trim(EventData_LogonId)
+  | parse "New Account:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\r\n" as EventData_TargetSecurityId,EventData_TargetUserName,EventData_TargetDomainName
+  | trim(EventData_TargetSecurityId) | trim(EventData_TargetUserName) | trim(EventData_TargetDomainName)
+  EOT
+  enabled = true
+}
+
+resource "sumologic_field_extraction_rule" "WindowsEvent472247244725" {
+  name = "${var.base_name} 4722 4724 4725"
+  scope = <<-EOT
+  ${var.base_scope} ("EventCode = 4722" OR "EventCode = 4724" OR "EventCode = 4725")
+  EOT
+  parse_expression = <<-EOT
+  parse "Subject:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\r\n\tLogon ID:*\r\n" as EventData_SubjectSecurityId,EventData_SubjectUserName,EventData_SubjectDomainName,EventData_LogonId
+  | trim(EventData_SubjectSecurityId) | trim(EventData_SubjectUserName) | trim(EventData_SubjectDomainName) | trim(EventData_LogonId)
+  | parse "Target Account:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\";" as EventData_TargetSecurityId,EventData_TargetUserName,EventData_TargetDomainName
+  | trim(EventData_TargetSecurityId) | trim(EventData_TargetUserName) | trim(EventData_TargetDomainName)
+  EOT
+  enabled = true
+}
+
 resource "sumologic_field_extraction_rule" "WindowsEventAccounts" {
   name = "${var.base_name} 4723 4726 4738"
   scope = <<-EOT
   ${var.base_scope} ("EventCode = 4723" OR "EventCode = 4726" OR "EventCode = 4738")
   EOT
   parse_expression = <<-EOT
-  parse "Subject:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\r\n\tLogon ID:*\r\n" as _1,EventData_SubjectUserName,EventData_SubjectDomainName,EventData_LogonId
-  | trim(EventData_SubjectUserName) | trim(EventData_SubjectDomainName) | trim(EventData_LogonId)
-  | parse "Target Account:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\r\n" as _2,EventData_TargetUserName,EventData_TargetDomainName
-  | trim(EventData_TargetUserName) | trim(EventData_TargetDomainName)
-  | fields - _1,_2
+  parse "Subject:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\r\n\tLogon ID:*\r\n" as EventData_SubjectSecurityId,EventData_SubjectUserName,EventData_SubjectDomainName,EventData_LogonId
+  | trim(EventData_SubjectSecurityId) | trim(EventData_SubjectUserName) | trim(EventData_SubjectDomainName) | trim(EventData_LogonId)
+  | parse "Target Account:\r\n\tSecurity ID:*\r\n\tAccount Name:*\r\n\tAccount Domain:*\r\n" as EventData_TargetSecurityId,EventData_TargetUserName,EventData_TargetDomainName
+  | trim(EventData_TargetSecurityId) | trim(EventData_TargetUserName) | trim(EventData_TargetDomainName)
   EOT
   enabled = true
 }
